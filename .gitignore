@@ -1,0 +1,7 @@
+*.mp4
+*.asv
+*.avi
+models/
+raw_data/
+number_data/
+checkpoints/

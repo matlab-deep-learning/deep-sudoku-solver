@@ -6,4 +6,6 @@ function imOut = addSharpening(im, maxAmount)
     else
         imOut = im;
     end
+    
+    % Copyright 2018 The MathWorks, Inc.
 end

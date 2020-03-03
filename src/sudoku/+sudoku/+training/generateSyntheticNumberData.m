@@ -27,7 +27,7 @@ function generateSyntheticNumberData(outputFolder, nSamples)
         if ~isfolder(dataDir)
             mkdir(dataDir);
         end
-        for iSample = 1:nSamples
+        parfor iSample = 1:nSamples
             handWritten = iSample < nSamples/2;
             im = sudoku.synth.makeSyntheticDigit(iDigit, handWritten);
             imwrite(im, fullfile(dataDir, sprintf('%0.5d.jpg', iSample)), ...

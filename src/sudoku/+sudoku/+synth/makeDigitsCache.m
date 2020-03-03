@@ -14,6 +14,14 @@ function digitData = makeDigitsCache()
         'Verdana', ...
         'Verdana Bold'};
     nFonts = numel(possibleFonts);
+    
+    allFonts = listTrueTypeFonts();
+    if any(~ismember(possibleFonts, allFonts))
+        % None of the fonts are available, select some at random
+        % Sometimes these will not have the right characters...
+        possibleFonts = allFonts(randi(numel(allFonts), 1, nFonts));
+    end
+    
     fontSize = 64;
     position = [32, 32];
     
@@ -22,8 +30,7 @@ function digitData = makeDigitsCache()
         for iFont = 1:nFonts
             font = possibleFonts{iFont};
 
-
-
+            
             outIm = insertText(im(:,:,iFont), position, digit, ...
                 'BoxOpacity', 0, ...
                 'Font', font, ...
@@ -31,6 +38,7 @@ function digitData = makeDigitsCache()
                 'TextColor', 'black', ...
                 'AnchorPoint', 'center');
             im(:,:,iFont) = outIm(:,:,1);
+            
         end
         field = strcat("digit_", digit{1});
         digitData.(field) = im;

@@ -17,6 +17,9 @@ function im = makeSyntheticDigit(iDigit, isHandwritten)
     im = sudoku.synth.addBlur(im, 2.6);
     im = sudoku.synth.addNoise(im, 40);
     im = sudoku.synth.rescaleChannels(im, 0.11);
-    im = sudoku.synth.addSharpening(im, 2);
+    if rand(1) < 0.1
+        % Do fewer sharpens as they are slow
+        im = sudoku.synth.addSharpening(im, 3);
+    end
     im = sudoku.synth.addDistortion(im, resolution, border, 64, 30, 60);
 end

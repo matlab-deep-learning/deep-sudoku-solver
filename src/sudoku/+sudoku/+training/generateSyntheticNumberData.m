@@ -21,7 +21,7 @@ function generateSyntheticNumberData(outputFolder, nSamples)
             'Output folder is not empty.');
     end
 
-    parfor iDigit = 0:9
+    for iDigit = 0:9
         fprintf('Generating digit %d', iDigit);
         dataDir = fullfile(outputFolder, num2str(iDigit));
         if ~isfolder(dataDir)

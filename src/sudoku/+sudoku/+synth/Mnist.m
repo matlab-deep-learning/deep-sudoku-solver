@@ -37,7 +37,11 @@ classdef Mnist < handle
             if isempty(obj.Cache_)
                 dataFile = fullfile(sudokuRoot(), 'data', 'number_data', 'mnist.mat');
                 mnist = load(dataFile, 'training');
-                obj.Cache_ = mnist.training;
+                for iLabel = 0:9
+                    selected = mnist.training.labels == iLabel;
+                    field = sprintf("digit_%d", iLabel);
+                    obj.Cache_.(field) = mnist.training.images(:,:,selected);
+                end
             end
             val = obj.Cache_;
         end

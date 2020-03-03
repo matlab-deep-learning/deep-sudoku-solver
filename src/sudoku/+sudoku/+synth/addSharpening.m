@@ -1,6 +1,9 @@
 function imOut = addSharpening(im, maxAmount)
-    
-    % Copyright 2018 The MathWorks, Inc.
-    
-    imOut = imsharpen(im, 'Amount', maxAmount*rand(1));
+    % This is expensive so don't bother with small amounts
+    amount = maxAmount*rand(1);
+    if amount > 0.4
+        imOut = imsharpen(im, 'Amount', amount);
+    else
+        imOut = im;
+    end
 end

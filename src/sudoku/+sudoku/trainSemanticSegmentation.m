@@ -36,7 +36,7 @@ function net = trainSemanticSegmentation(outputName, checkpoints)
     trainFraction = 0.7;
 
     %% Get the training data
-    [imagesTrain, labelsTrain, imagesTest, labelsTest] = sudoku.training.getSudokuData(trainFraction, false);
+    [imagesTrain, labelsTrain, imagesTest, labelsTest] = sudoku.training.getSudokuData(trainFraction, true);
 
     augmenter = imageDataAugmenter( ...
         'RandXReflection',false, ...

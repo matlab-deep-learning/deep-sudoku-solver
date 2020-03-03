@@ -3,8 +3,8 @@ function imOut = insertWrittenDigit(im, digit, resolution, border, padding)
     % Copyright 2018 The MathWorks, Inc.
     
     digitData = sudoku.synth.Mnist.getInstance.Cache;
-    
-    matchingDigits = digitData.images(:, :, digitData.labels == digit);
+    field = sprintf("digit_%d", digit);
+    matchingDigits = digitData.(field);
     digit = matchingDigits(:,:,randi(size(matchingDigits, 3)));
 
     textSize = [resolution - 2*border - 2*padding, resolution - 2*border - 2*padding];

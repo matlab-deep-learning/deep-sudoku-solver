@@ -4,5 +4,4 @@ function uninstall()
     
     thisPath = fileparts(mfilename('fullpath'));
     rmpath(fullfile(thisPath, 'src', 'sudoku'));
-    
 end

@@ -24,15 +24,14 @@ function net = trainNumberNetwork(outputName)
     %% Parameters
     modelDirectory = 'models';
     nSamples = 5000;
-    initialChannels = 32;
-    imageSize = [64, 64];
+    imageSize = [64, 64, 3];
 
     %% Get the training data
     [train, test] = sudoku.training.getNumberData(nSamples, false);
 
     %% Set up the training options
     options = trainingOptions('adam', ...
-                                ...'Plots', 'training-progress', ...
+                                'Plots', 'training-progress', ...
                                 'L2Regularization', 1e-4, ...
                                 'MaxEpochs', 5, ...
                                 'Shuffle', 'every-epoch', ...
@@ -46,8 +45,7 @@ function net = trainNumberNetwork(outputName)
                                 'MiniBatchSize', 256);
 
 	%% Setup the network
-%     layers = sudoku.training.vggLike(initialChannels, imageSize);
-    layers = makeNetworkDownsample();
+    layers = sudoku.training.makeNetwork(imageSize);
     
     %% Train
     net = trainNetwork(train, layers, options);

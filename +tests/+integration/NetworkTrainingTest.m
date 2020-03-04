@@ -5,8 +5,7 @@ classdef NetworkTrainingTest < matlab.unittest.TestCase
     methods (Test)
         function testNumberNetwork(testCase)
             nSamples = 10;
-            initialChannels = 4;
-            imageSize = [64, 64];
+            imageSize = [64, 64, 3];
 
             [train, ~] = sudoku.training.getNumberData(nSamples, false);
 
@@ -15,7 +14,7 @@ classdef NetworkTrainingTest < matlab.unittest.TestCase
                                         'MaxEpochs', 2, ...
                                         'MiniBatchSize', 64);
 
-            layers = sudoku.training.vggLike(initialChannels, imageSize);
+            layers = sudoku.training.makeNetwork(imageSize);
             net = trainNetwork(train, layers, options);
         end
         

@@ -1,8 +1,8 @@
-function lgraph = makeNetwork()
+function lgraph = makeNetwork(imageSize)
     
     lgraph = layerGraph();
     
-    input = imageInputLayer([64, 64, 3], "Name", "input");
+    input = imageInputLayer(imageSize, "Name", "input");
     stem = [convBnRelu("stem", 64)
 	    convBnRelu("stem2", 64, true)];
     layer1 = convBnRelu("layer1", 128, true);
@@ -26,7 +26,7 @@ function lgraph = makeNetwork()
     output = [
         maxPooling2dLayer(4, "Name", "pool", "Stride", 4)
         fullyConnectedLayer(10, "Name", "fc", ...
-            "WeightsInitializer", @(x) kaimingUniform(x, "fc"))
+            "WeightsInitializer", @(x) sudoku.training.kaimingUniform(x, "fc"))
         softmaxLayer("Name", "softmax")
         classificationLayer("Name", "classes")
         ];
@@ -56,7 +56,7 @@ function layers = convBnRelu(label, filters, pool)
                             "Name", name("conv"), ...
                             "Padding", 1, ...
                             "Stride", 1, ...
-                            "WeightsInitializer", @(x) kaimingUniform(x, "conv"));
+                            "WeightsInitializer", @(x) sudoku.training.kaimingUniform(x, "conv"));
             batchNormalizationLayer("Name", name("bn"))
             reluLayer("Name", name("relu"));
         ];

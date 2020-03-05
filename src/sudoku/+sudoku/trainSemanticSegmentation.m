@@ -32,11 +32,10 @@ function net = trainSemanticSegmentation(outputName, checkpoints)
     modelDirectory = 'models';
     inputSize = [512, 512, 3];
     numClasses = 2;
-    networkDepth = 'vgg16';
     trainFraction = 0.7;
 
     %% Get the training data
-    [imagesTrain, labelsTrain, imagesTest, labelsTest] = sudoku.training.getSudokuData(trainFraction, true);
+    [imagesTrain, labelsTrain, imagesTest, labelsTest] = sudoku.training.getSudokuData(trainFraction, false);
 
     augmenter = imageDataAugmenter( ...
         'RandXReflection',false, ...
@@ -54,7 +53,7 @@ function net = trainSemanticSegmentation(outputName, checkpoints)
         'OutputSize', inputSize(1:2));
 
     %% Setup the network
-    layers = segnetLayers(inputSize, numClasses, networkDepth);
+    layers = unetLayers(inputSize, numClasses);
     layers = sudoku.training.weightLossByFrequency(layers, train);
 
     %% Set up the training options

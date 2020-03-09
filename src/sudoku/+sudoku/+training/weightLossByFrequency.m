@@ -8,8 +8,8 @@ function lgraph = weightLossByFrequency(lgraph, pixelImageDataStore)
     pxLayer = pixelClassificationLayer('Name', 'labels', ...
                                         'ClassNames', pixelCounts.Name, ...
                                         'ClassWeights', classWeights);
-    lgraph = removeLayers(lgraph, 'Segmentation-Layer');
+    lgraph = removeLayers(lgraph, 'classification');
     lgraph = addLayers(lgraph, pxLayer);
-    lgraph = connectLayers(lgraph, 'Softmax-Layer', 'labels');
+    lgraph = connectLayers(lgraph, 'softmax-out', 'labels');
 
 end
